@@ -10,11 +10,16 @@ class Users(models.Model):
     email = models.EmailField(unique=True)
 
 
+class RSS_links(models.Model):
+    name = models.CharField(max_length=40, unique=True)
+    link = models.URLField()
+
+
 class Posts(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     source_link = models.URLField()
-    rss_link = models.ForeignKey(Req_Urls, on_delete=models.PROTECT)
+    rss_link = models.ForeignKey(RSS_links, on_delete=models.PROTECT)
 
 
 class Tags(models.Model):
