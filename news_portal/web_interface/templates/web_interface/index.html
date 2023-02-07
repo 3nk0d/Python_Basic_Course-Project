@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>News Portal</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h1>Hello, {{ user.username|default:"anonymous" }}!</h1>
+{% endblock %}
+</body>
+</html>
