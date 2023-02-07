@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>posts_detail</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h2>Вы действительно хотите удалить данный объект?</h2>
+
+    <h3>{{object.title}}</h3>
+    <p>
+        {{object.text}}
+    </p>
+        {{object.url}}
+    </p>
+        {{object.from_url.name}}
+    </p>
+        {{object.from_url.url}}
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <a href=" {% url 'posts' %}">Назад</a>
+      <button type="submit">Подтверждаю удаление</button>
+    </form>
+
+{% endblock %}
+</body>
+</html>

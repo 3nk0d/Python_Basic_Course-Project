@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>users_detail</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h1>{{object.username}}</h1>
+    <p>
+        {{object.name}}
+    </p>
+        {{object.url}}
+    </p>
+        {{object.email}}
+    </p>
+    <a href=" {% url 'users' %}">Назад</a>
+{% endblock %}
+</body>
+</html>

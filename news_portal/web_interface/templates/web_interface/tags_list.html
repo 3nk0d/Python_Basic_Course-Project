@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>tags_list</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <a href=" {% url 'tag_create' %}">Создать запись</a>
+    {% for item in object_list %}
+        <li>
+            <a href=" {% url 'tag' pk=item.pk %}">ID: {{ item.id }} -> TAG: {{ item.tag }}</a>
+            /
+            <a href=" {% url 'tag_change' pk=item.pk %}">Изменить запись</a>
+            /
+            <a href=" {% url 'tag_delete' pk=item.pk %}">Удалить запись</a>
+        </li>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

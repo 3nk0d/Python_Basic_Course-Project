@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>req_urls</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h2>Вы действительно хотите удалить данный объект?</h2>
+
+    <h3>{{object.name}}</h3>
+    </p>
+        {{object.url}}
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <a href=" {% url 'sources' %}">Назад</a>
+      <button type="submit">Подтверждаю удаление</button>
+    </form>
+{% endblock %}
+</body>
+</html>

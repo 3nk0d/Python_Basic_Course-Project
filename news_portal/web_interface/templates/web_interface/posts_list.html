@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>posts_list</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <a href=" {% url 'post_create' %}">Создать запись</a>
+    <ul>
+    {% for post in object_list %}
+        <li>
+            <a href=" {% url 'post' pk=post.pk %}">ID: {{ post.id }} -> TITLE: {{ post.title }} URL: {{ post.url }} ==
+            FROM_URL_NAME: {{ post.from_url.name }} FROM_URL: {{ post.from_url.url }}</a>
+            /
+            <a href=" {% url 'post_change' pk=post.pk %}">Изменить запись</a>
+            /
+            <a href=" {% url 'post_delete' pk=post.pk %}">Удалить запись</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+</body>
+</html>

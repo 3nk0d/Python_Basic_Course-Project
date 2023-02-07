@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>users_detail</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h1>{{object.tag}}</h1>
+    <p>
+        {% for user in object.users.all %}
+            <li>ID: {{ user.id }} -> USERNAME: {{ user.username }} NAME: {{ user.name }} EMAIL: {{ user.email }}</li>
+        {% endfor %}
+    </p>
+    <a href=" {% url 'tags' %}">Назад</a>
+{% endblock %}
+</body>
+</html>

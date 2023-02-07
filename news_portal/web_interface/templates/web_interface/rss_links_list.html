@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>req_urls_list</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <a href=" {% url 'source_create' %}">Создать запись</a>
+    {% for url in object_list %}
+        <li>
+            <a href=" {% url 'source' pk=url.pk %}">ID: {{ url.id }} -> NAME: {{ url.name }} URL: {{ url.url }}</a>
+            /
+            <a href=" {% url 'source_change' pk=url.pk %}">Изменить запись</a>
+            /
+            <a href=" {% url 'source_delete' pk=url.pk %}">Удалить запись</a>
+        </li>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

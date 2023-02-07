@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>users_list</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <a href=" {% url 'user_create' %}">Создать запись</a>
+    {% for user in object_list %}
+        <li>
+            <a href=" {% url 'user' pk=user.pk %}">ID: {{ user.id }} -> USERNAME: {{ user.username }}
+            NAME: {{ user.name }} EMAIL: {{ user.email }}</a>
+            /
+            <a href=" {% url 'user_change' pk=user.pk %}">Изменить запись</a>
+            /
+            <a href=" {% url 'user_delete' pk=user.pk %}">Удалить запись</a>
+        </li>
+    {% endfor %}
+{% endblock %}
+</body>
+</html>
