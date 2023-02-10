@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView ,UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from web_interface.models import Posts, Users, RSS_links, Tags
 
 # Create your views here.
@@ -10,7 +10,7 @@ def main_page(request):
 
 class Posts_CreateView(CreateView):
     model = Posts
-    fields = ('title', 'text', 'url', 'from_url')
+    fields = ('title', 'text', 'source_link', 'rss_link')
     #form_class = PostForm
     success_url = reverse_lazy('posts')
 
@@ -30,7 +30,7 @@ class Posts_Delete(DeleteView):
 
 class Users_CreateView(CreateView):
     model = Users
-    fields = ('username', 'name', 'email')
+    fields = ('username', 'password', 'second_name', 'name', 'email')
     success_url = reverse_lazy('users')
 
 
@@ -53,7 +53,7 @@ class RSS_links_ListView(ListView):
 
 class RSS_links_CreateView(CreateView):
     model = RSS_links
-    fields = ('name', 'url')
+    fields = ('name', 'link')
     success_url = reverse_lazy('sources')
 
 
@@ -68,7 +68,7 @@ class RSS_links_Delete(DeleteView):
 
 class Tags_CreateView(CreateView):
     model = Tags
-    fields = ('tag', 'users')
+    fields = ('tag', 'users_tags')
     success_url = reverse_lazy('tags')
 
 
@@ -87,22 +87,22 @@ class Tags_Delete(DeleteView):
 
 class Posts_UpdateView(UpdateView):
     model = Posts
-    fields = ('title', 'text', 'url', 'from_url')
+    fields = ('title', 'text', 'source_link', 'rss_link')
     #form_class = PostForm
     success_url = reverse_lazy('posts')
 
 
 class Users_UpdateView(UpdateView):
     model = Users
-    fields = ('username', 'name', 'email')
+    fields = ('username', 'password', 'second_name', 'name', 'email')
     success_url = reverse_lazy('users')
 
 class RSS_links_UpdateView(UpdateView):
     model = RSS_links
-    fields = ('name', 'url')
+    fields = ('name', 'link')
     success_url = reverse_lazy('sources')
 
 class Tags_UpdateView(UpdateView):
     model = Tags
-    fields = ('tag', 'users')
+    fields = ('tag', 'users_tags')
     success_url = reverse_lazy('tags')
