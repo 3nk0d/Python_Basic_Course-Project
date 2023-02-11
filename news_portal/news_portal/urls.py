@@ -39,7 +39,11 @@ from web_interface.views import (
     Tags_UpdateView,
     Posts_User_View,
 )
-from RSS_parser.views import rss_jobs
+from users.views import (
+    Registration_View,
+    Authentication_View,
+    LogOut_View,
+)
 
 
 urlpatterns = [
@@ -65,5 +69,9 @@ urlpatterns = [
     path('tags/create/', Tags_CreateView.as_view(), name='tag_create'),
     path('tags/change/<int:pk>/', Tags_UpdateView.as_view(), name='tag_change'),
     path('tags/delete/<int:pk>/', Tags_Delete.as_view(), name='tag_delete'),
+    #USERS
+    path('users/registration/', Registration_View.as_view(), name='registration'),
+    path('users/login/', Authentication_View.as_view(), name='authentication'),
+    path('users/logout/', LogOut_View.as_view(), name='log_out'),
     path('admin/', admin.site.urls),
 ]
