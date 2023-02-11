@@ -6,18 +6,28 @@ class Command (BaseCommand):
     help = 'Fill DB'
 
     def handle(self, *args, **options):
-        Tags.objects.all().delete()
-        RSS_links.objects.all().delete()
-        Users.objects.all().delete()
-        Posts.objects.all().delete()
+        #Tags.objects.all().delete()
+        #RSS_links.objects.all().delete()
+        #Users.objects.all().delete()
+        #Posts.objects.all().delete()
+
+        tag1 = Tags.objects.create(tag='найден')
+        tag2 = Tags.objects.create(tag='взломан')
+        tag3 = Tags.objects.create(tag='авария')
+        tag4 = Tags.objects.create(tag='яндекс')
 
 
         user1 = Users.objects.create(username='Vovan3', name='Vova', email='Vova@email.com')
         user2 = Users.objects.create(username='Ivan12', name='Ivan', email='Ivan@email.com')
         user3 = Users.objects.create(username='Ann4', name='Anna', email='Anna@email.com')
 
-        first_url = RSS_links.objects.create(name='first', link='http://www.google.com')
-        second_url = RSS_links.objects.create(name='second', link='http://www.yandex.com')
+        user1.user_tags.add(tag1, tag4)
+        user2.user_tags.add(tag2)
+        user3.user_tags.add(tag2, tag3, tag4)
+
+        first_url = RSS_links.objects.create(name='first', approved=False, link='http://www.google.com')
+        second_url = RSS_links.objects.create(name='second', approved=False, link='http://www.yandex.com')
+        third_url = RSS_links.objects.create(name='swyx.io', approved=True, link='https://swyx.io/rss.xml')
 
         post1 = Posts.objects.create(title='Cool title 1', text='The best text 1', source_link='some url 1', rss_link=first_url)
         # post1.rss_link.add(first_url)
@@ -32,11 +42,7 @@ class Command (BaseCommand):
         post4 = Posts.objects.create(title='Cool title 4', text='The best text 4', source_link='some url 4', rss_link=second_url)
         #post4.rss_link.add(second_url)
 
-        tag1 = Tags.objects.create(tag='найден')
-        tag1.users_tags.add(user1)
-        tag2 = Tags.objects.create(tag='взломан')
-        tag2.users_tags.add(user2, user3)
-        tag3 = Tags.objects.create(tag='авария')
-        tag3.users_tags.add(user3)
-        tag4 = Tags.objects.create(tag='яндекс')
-        tag4.users_tags.add(user1, user3)
+        post1.post_tags.add(tag1)
+        post2.post_tags.add(tag2, tag3)
+        post3.post_tags.add(tag4)
+        post4.post_tags.add(tag1, tag3)
