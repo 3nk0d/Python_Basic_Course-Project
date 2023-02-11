@@ -14,8 +14,7 @@
     <ul>
     {% for post in object_list %}
         <li>
-            <a href=" {% url 'post' pk=post.pk %}">ID: {{ post.id }} -> TITLE: {{ post.title }} URL: {{ post.url }} ==
-            FROM_URL_NAME: {{ post.from_url.name }} FROM_URL: {{ post.from_url.url }}</a>
+            <a href=" {% url 'post' pk=post.pk %}">{{ post.id }}. {{ post.title }}</a>
             /
             <a href=" {% url 'post_change' pk=post.pk %}">Изменить запись</a>
             /

@@ -13,7 +13,7 @@
     <a href=" {% url 'tag_create' %}">Создать запись</a>
     {% for item in object_list %}
         <li>
-            <a href=" {% url 'tag' pk=item.pk %}">ID: {{ item.id }} -> TAG: {{ item.tag }}</a>
+            <a href=" {% url 'tag' pk=item.pk %}">{{ item.id }}. {{ item.tag }}</a>
             /
             <a href=" {% url 'tag_change' pk=item.pk %}">Изменить запись</a>
             /

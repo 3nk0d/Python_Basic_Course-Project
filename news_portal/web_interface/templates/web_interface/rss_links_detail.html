@@ -10,10 +10,19 @@
 </head>
 <body>
 {% block content %}
-    <h1>{{object.name}}</h1>
-    </p>
-        {{object.url}}
-    </p>
+    <h1>Link Info</h1>
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+              <div class="card-header">
+                {{object.name}}
+            </div>
+            <li class="list-group-item">{{object.link}}</li>
+            <li class="list-group-item">{{object.approved}}</li>
+          </ul>
+        </div>
+    </div>
+
     <a href=" {% url 'sources' %}">Назад</a>
 {% endblock %}
 </body>

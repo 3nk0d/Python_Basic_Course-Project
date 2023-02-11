@@ -13,8 +13,7 @@
     <a href=" {% url 'user_create' %}">Создать запись</a>
     {% for user in object_list %}
         <li>
-            <a href=" {% url 'user' pk=user.pk %}">ID: {{ user.id }} -> USERNAME: {{ user.username }}
-            NAME: {{ user.name }} EMAIL: {{ user.email }}</a>
+            <a href=" {% url 'user' pk=user.pk %}">{{ user.id }}. {{ user.username }}</a>
             /
             <a href=" {% url 'user_change' pk=user.pk %}">Изменить запись</a>
             /

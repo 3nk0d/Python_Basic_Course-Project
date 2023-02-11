@@ -10,17 +10,33 @@
 </head>
 <body>
 {% block content %}
-    <h1>{{object.title}}</h1>
-    <p>
-        {{object.text}}
-    </p>
-        {{object.url}}
-    </p>
-        {{object.from_url.name}}
-    </p>
-        {{object.from_url.url}}
-    </p>
-    <a href=" {% url 'posts' %}">Назад</a>
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <div class="card-header">
+                {{object.title}}
+            </div>
+            <li class="list-group-item">{{object.text}}</li>
+            <li class="list-group-item"><a href="{{object.source_link}}">Url to the original post</a></li>
+            <li class="list-group-item">{{object.datetime_string}}</li>
+            <li class="list-group-item">{{object.rss_link.name}}</li>
+          </ul>
+        </div>
+        <p></p>
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            Post tags:
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for item in object.post_tags.all %}
+             <li class="list-group-item">
+                {{ item.tag }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+    <a href=" {% url 'posts_control' %}">Назад</a>
 {% endblock %}
 </body>
 </html>

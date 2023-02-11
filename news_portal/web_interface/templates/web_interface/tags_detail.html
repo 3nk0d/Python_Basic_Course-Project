@@ -10,12 +10,13 @@
 </head>
 <body>
 {% block content %}
-    <h1>{{object.tag}}</h1>
-    <p>
-        {% for user in object.users.all %}
-            <li>ID: {{ user.id }} -> USERNAME: {{ user.username }} NAME: {{ user.name }} EMAIL: {{ user.email }}</li>
-        {% endfor %}
-    </p>
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{object.tag}}</li>
+          </ul>
+        </div>
+    </div>
     <a href=" {% url 'tags' %}">Назад</a>
 {% endblock %}
 </body>

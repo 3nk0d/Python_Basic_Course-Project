@@ -13,15 +13,6 @@
     <h2>Вы действительно хотите удалить данный объект?</h2>
 
     <h3>{{object.title}}</h3>
-    <p>
-        {{object.text}}
-    </p>
-        {{object.url}}
-    </p>
-        {{object.from_url.name}}
-    </p>
-        {{object.from_url.url}}
-    </p>
 
     <form method="post">
       {% csrf_token %}
