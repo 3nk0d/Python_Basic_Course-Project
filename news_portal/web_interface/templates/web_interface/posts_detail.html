@@ -14,9 +14,9 @@
         <div class="card" style="width: 18rem;">
           <ul class="list-group list-group-flush">
             <div class="card-header">
-                {{object.title}}
+                {{object.title|striptags}}
             </div>
-            <li class="list-group-item">{{object.text}}</li>
+            <li class="list-group-item">{{object.text|striptags}}</li>
             <li class="list-group-item"><a href="{{object.source_link}}">Url to the original post</a></li>
             <li class="list-group-item">{{object.datetime_string}}</li>
             <li class="list-group-item">{{object.rss_link.name}}</li>
