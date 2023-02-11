@@ -37,16 +37,19 @@ from web_interface.views import (
     Users_UpdateView,
     RSS_links_UpdateView,
     Tags_UpdateView,
+    Posts_User_View,
 )
+from RSS_parser.views import rss_jobs
 
 
 urlpatterns = [
     path('', main_page, name='main'),
-    path('posts/', Posts_ListView.as_view(), name='posts'),
-    path('posts/<int:pk>/', Posts_DetailView.as_view(), name='post'),
-    path('posts/create/', Posts_CreateView.as_view(), name='post_create'),
-    path('posts/change/<int:pk>/', Posts_UpdateView.as_view(), name='post_change'),
-    path('posts/delete/<int:pk>/', Posts_Delete.as_view(), name='post_delete'),
+    path('posts/', Posts_User_View.as_view(), name='posts'),
+    path('posts_control/', Posts_ListView.as_view(), name='posts_control'),
+    path('posts_control/<int:pk>/', Posts_DetailView.as_view(), name='post'),
+    path('posts_control/create/', Posts_CreateView.as_view(), name='post_create'),
+    path('posts_control/change/<int:pk>/', Posts_UpdateView.as_view(), name='post_change'),
+    path('posts_control/delete/<int:pk>/', Posts_Delete.as_view(), name='post_delete'),
     path('users/', Users_ListView.as_view(), name='users'),
     path('users/<int:pk>/', Users_DetailView.as_view(), name='user'),
     path('users/create/', Users_CreateView.as_view(), name='user_create'),
