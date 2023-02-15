@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand
 import feedparser
 import time
-from web_interface.models import Users, Posts, RSS_links, Tags
+from web_interface.models import Posts, RSS_links, Tags
+
 
 class Command (BaseCommand):
     help = 'RSS parsing'
@@ -11,8 +12,6 @@ class Command (BaseCommand):
         rss_links = RSS_links.objects.all()
 
         tags = Tags.objects.all()
-
-        users = Users.objects.all()
 
         for rss_link in rss_links:
             print(rss_link.link)
@@ -27,9 +26,11 @@ class Command (BaseCommand):
                 source_link = post['link']
                 publish_date_str = post['published']
                 publish_date_time_struct = post['published_parsed']
+                if Posts.objects.filter(title=title):
+                    continue
                 Post = Posts.objects.create(title=title, text=summary, source_link=source_link, datetime_string=publish_date_str, rss_link=rss_link)
 
                 for tag in tags:
-                    if tag.tag in title:
+                    if (tag.tag in title) or (tag.tag in summary):
                         Post.post_tags.add(tag)
 
