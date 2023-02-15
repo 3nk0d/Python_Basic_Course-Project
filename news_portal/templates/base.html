@@ -11,43 +11,63 @@
     {% endblock %}
 
 </head>
-<body>
+<body">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href=" {% url 'main' %} ">Navbar</a>
+        <a class="navbar-brand" href=" {% url 'main' %} ">Home page</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'posts' %}">Tagged Posts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{% url 'tag_create' %}">Your tags</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Profile</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Data control
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'users' %}">Users</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'posts_control' %}">Posts</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'tags' %}">Tags</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'sources' %}">Sources urls</a></li>
-              </ul>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'posts' %}">Tagged Posts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'tags' %}">Your tags</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{% url 'sources' %}">RSS Links</a>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Data control
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'users' %}">Users</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'posts' %}">Posts</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'tags' %}">Tags</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'sources' %}">Sources urls</a></li>
+                  </ul>
+                </li>
+                {% endif %}
+            {% endif %}
           </ul>
-            <a href="{% url 'registration' %}" class="navbar-text ml-3">Register</a>
-            <a href="{% url 'authentication' %}" class="navbar-text ml-3">Login</a>
-            <a href="{% url 'log_out' %}" class="navbar-text ml-3">Log out</a>
-            <a href="{% url 'admin:index' %}" class="navbar-text ml-3">Admin</a>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'account' pk=user.pk %}" class="btn btn-outline-secondary" role="button">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'log_out' %}" class="btn btn-outline-secondary" role="button">Log out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'authentication' %}" class="btn btn-outline-secondary" role="button">Login</a>
+                </li>
+                <li>
+                    <a href="{% url 'registration' %}" class="btn btn-outline-secondary" role="button">Register</a>
+                </li class="nav-item">
+            {% endif %}
+                <li class="nav-item">
+                    <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary" role="button">Admin</a>
+                </li>
+            </ul>
         </div>
       </div>
     </nav>
