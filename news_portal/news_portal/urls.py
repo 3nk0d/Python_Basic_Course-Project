@@ -37,23 +37,24 @@ from web_interface.views import (
     Users_UpdateView,
     RSS_links_UpdateView,
     Tags_UpdateView,
-    Posts_User_View,
+    AddTag,
+    AddTag_View,
 )
 from users.views import (
     Registration_View,
-    Authentication_View,
-    LogOut_View,
+    Login_View,
+    Logout_View,
+    Account,
 )
 
 
 urlpatterns = [
     path('', main_page, name='main'),
-    path('posts/', Posts_User_View.as_view(), name='posts'),
-    path('posts_control/', Posts_ListView.as_view(), name='posts_control'),
-    path('posts_control/<int:pk>/', Posts_DetailView.as_view(), name='post'),
-    path('posts_control/create/', Posts_CreateView.as_view(), name='post_create'),
-    path('posts_control/change/<int:pk>/', Posts_UpdateView.as_view(), name='post_change'),
-    path('posts_control/delete/<int:pk>/', Posts_Delete.as_view(), name='post_delete'),
+    path('posts/', Posts_ListView.as_view(), name='posts'),
+    path('posts/<int:pk>/', Posts_DetailView.as_view(), name='post'),
+    path('posts/create/', Posts_CreateView.as_view(), name='post_create'),
+    path('posts/change/<int:pk>/', Posts_UpdateView.as_view(), name='post_change'),
+    path('posts/delete/<int:pk>/', Posts_Delete.as_view(), name='post_delete'),
     path('users/', Users_ListView.as_view(), name='users'),
     path('users/<int:pk>/', Users_DetailView.as_view(), name='user'),
     path('users/create/', Users_CreateView.as_view(), name='user_create'),
@@ -69,9 +70,12 @@ urlpatterns = [
     path('tags/create/', Tags_CreateView.as_view(), name='tag_create'),
     path('tags/change/<int:pk>/', Tags_UpdateView.as_view(), name='tag_change'),
     path('tags/delete/<int:pk>/', Tags_Delete.as_view(), name='tag_delete'),
+    path('subscribe/', AddTag, name='subscribe'),
+    path('subscribe/change/<int:pk>/', AddTag_View.as_view(),name='subcribe_change'),
     #USERS
     path('users/registration/', Registration_View.as_view(), name='registration'),
-    path('users/login/', Authentication_View.as_view(), name='authentication'),
-    path('users/logout/', LogOut_View.as_view(), name='log_out'),
+    path('users/login/', Login_View.as_view(), name='authentication'),
+    path('users/logout/', Logout_View.as_view(), name='log_out'),
+    path('users/account/<int:pk>/', Account.as_view(), name='account'),
     path('admin/', admin.site.urls),
 ]
