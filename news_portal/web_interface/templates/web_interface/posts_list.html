@@ -10,15 +10,25 @@
 </head>
 <body>
 {% block content %}
+    {% if user.is_staff %}
     <a href=" {% url 'post_create' %}">Создать запись</a>
+    {% endif %}
+    <h3>Posts</h3>
     <ul>
     {% for post in object_list %}
         <li>
-            <a href=" {% url 'post' pk=post.pk %}">{{ post.id }}. {{ post.title }}</a>
+            <a href=" {% url 'post' pk=post.pk %}">
+                {% if user.is_staff %}
+                {{ post.id }}.
+                {% endif %}
+                {{ post.title }}
+            </a>
+            {% if user.is_staff %}
             /
             <a href=" {% url 'post_change' pk=post.pk %}">Изменить запись</a>
             /
             <a href=" {% url 'post_delete' pk=post.pk %}">Удалить запись</a>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
