@@ -1,15 +1,15 @@
 from django.core.management.base import BaseCommand
-from web_interface.models import Posts, Users, RSS_links, Tags
-
+from web_interface.models import Posts, RSS_links, Tags, Subscribe
+from django.contrib.auth.models import User
 
 class Command (BaseCommand):
     help = 'Fill DB'
 
     def handle(self, *args, **options):
-        #Tags.objects.all().delete()
-        #RSS_links.objects.all().delete()
-        #Users.objects.all().delete()
-        #Posts.objects.all().delete()
+        Tags.objects.all().delete()
+        RSS_links.objects.all().delete()
+        User.objects.all().delete()
+        Posts.objects.all().delete()
 
         tag1 = Tags.objects.create(tag='найден')
         tag2 = Tags.objects.create(tag='взломан')
@@ -17,13 +17,13 @@ class Command (BaseCommand):
         tag4 = Tags.objects.create(tag='яндекс')
 
 
-        user1 = Users.objects.create(username='Vovan3', name='Vova', email='Vova@email.com')
-        user2 = Users.objects.create(username='Ivan12', name='Ivan', email='Ivan@email.com')
-        user3 = Users.objects.create(username='Ann4', name='Anna', email='Anna@email.com')
+        user1 = User.objects.create(username='Vovan3', first_name='Vova', email='Vova@email.com')
+        user2 = User.objects.create(username='Ivan12', first_name='Ivan', email='Ivan@email.com')
+        user3 = User.objects.create(username='Ann4', first_name='Anna', email='Anna@email.com')
 
-        user1.user_tags.add(tag1, tag4)
-        user2.user_tags.add(tag2)
-        user3.user_tags.add(tag2, tag3, tag4)
+        user1.subscribe.user_tags.add(tag1, tag4)
+        user2.subscribe.user_tags.add(tag2)
+        user3.subscribe.user_tags.add(tag2, tag3, tag4)
 
         first_url = RSS_links.objects.create(name='first', approved=False, link='http://www.google.com')
         second_url = RSS_links.objects.create(name='second', approved=False, link='http://www.yandex.com')
