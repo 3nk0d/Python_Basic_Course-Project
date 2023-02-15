@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
-from web_interface.models import Posts, Users, RSS_links, Tags
-
+from web_interface.models import Posts, RSS_links, Tags, Subscribe
+from django.contrib.auth.models import User
+from web_interface.forms import RSS_links_CreateForm
 # Create your views here.
 
 def main_page(request):
@@ -19,6 +20,12 @@ class Posts_CreateView(CreateView):
 class Posts_ListView(ListView):
     model = Posts
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super(Posts_ListView, self).get_queryset()
+        print(Posts.objects.all())
+        return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all())
+
 
 class Posts_DetailView(DetailView):
     model = Posts
@@ -30,23 +37,24 @@ class Posts_Delete(DeleteView):
 
 
 class Users_CreateView(CreateView):
-    model = Users
-    fields = ('username', 'password', 'name', 'second_name', 'email', 'user_tags')
+    model = User
+    fields = '__all__'
     success_url = reverse_lazy('users')
+    template_name = 'web_interface/users_form.html'
 
 
 class Users_ListView(ListView):
-    model = Users
-
+    model = User
+    template_name = 'web_interface/users_list.html'
 
 class Users_DetailView(DetailView):
-    model = Users
-
+    model = User
+    template_name = 'web_interface/users_detail.html'
 
 class Users_Delete(DeleteView):
-    model = Users
+    model = User
     success_url = reverse_lazy('users')
-
+    template_name = 'web_interface/users_confirm_delete.html'
 
 class RSS_links_ListView(ListView):
     model = RSS_links
@@ -54,7 +62,7 @@ class RSS_links_ListView(ListView):
 
 class RSS_links_CreateView(CreateView):
     model = RSS_links
-    fields = ('name', 'link', 'approved')
+    form_class = RSS_links_CreateForm
     success_url = reverse_lazy('sources')
 
 
@@ -76,6 +84,12 @@ class Tags_CreateView(CreateView):
 class Tags_ListView(ListView):
     model = Tags
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super(Tags_ListView, self).get_queryset()
+        return self.request.user.subscribe.user_tags.all()
+
+
 
 class Tags_DetailView(DetailView):
     model = Tags
@@ -94,22 +108,34 @@ class Posts_UpdateView(UpdateView):
 
 
 class Users_UpdateView(UpdateView):
-    model = Users
-    fields = ('username', 'password', 'name', 'second_name', 'email', 'user_tags')
+    model = User
+    fields = '__all__'
     success_url = reverse_lazy('users')
+    template_name = 'web_interface/users_form.html'
+
+
+def AddTag(request):
+
+
+
+    return render(request, template_name='web_interface/add_tag_view.html')
+
+
+class AddTag_View(UpdateView):
+    model = Subscribe
+    fields = ('user_tags',)
+    success_url = reverse_lazy('tags')
+
 
 class RSS_links_UpdateView(UpdateView):
     model = RSS_links
     fields = ('name', 'link', 'approved')
     success_url = reverse_lazy('sources')
 
+
 class Tags_UpdateView(UpdateView):
     model = Tags
     fields = ('tag',)
     success_url = reverse_lazy('tags')
 
-
-class Posts_User_View(SingleObjectMixin, ListView):
-    model = Posts
-    template_name = 'Posts_User_View.html'
 
