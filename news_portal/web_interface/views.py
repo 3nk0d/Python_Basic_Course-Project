@@ -114,13 +114,6 @@ class Users_UpdateView(UpdateView):
     template_name = 'web_interface/users_form.html'
 
 
-def AddTag(request):
-
-
-
-    return render(request, template_name='web_interface/add_tag_view.html')
-
-
 class AddTag_View(UpdateView):
     model = Subscribe
     fields = ('user_tags',)

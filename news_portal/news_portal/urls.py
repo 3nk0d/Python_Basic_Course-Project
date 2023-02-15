@@ -37,7 +37,6 @@ from web_interface.views import (
     Users_UpdateView,
     RSS_links_UpdateView,
     Tags_UpdateView,
-    AddTag,
     AddTag_View,
 )
 from users.views import (
@@ -70,7 +69,6 @@ urlpatterns = [
     path('tags/create/', Tags_CreateView.as_view(), name='tag_create'),
     path('tags/change/<int:pk>/', Tags_UpdateView.as_view(), name='tag_change'),
     path('tags/delete/<int:pk>/', Tags_Delete.as_view(), name='tag_delete'),
-    path('subscribe/', AddTag, name='subscribe'),
     path('subscribe/change/<int:pk>/', AddTag_View.as_view(),name='subcribe_change'),
     #USERS
     path('users/registration/', Registration_View.as_view(), name='registration'),
