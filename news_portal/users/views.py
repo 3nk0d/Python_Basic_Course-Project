@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from users.forms import RegistrationForm
@@ -14,12 +14,16 @@ class Registration_View(CreateView):
     template_name = 'users/user_form.html'
 
 
-class Authentication_View(LoginView):
+class Login_View(LoginView):
     model = User
     template_name = 'users/login.html'
 
 
-class LogOut_View(LogoutView):
+class Logout_View(LogoutView):
     model = User
     template_name = 'users/logout.html'
 
+
+class Account(DetailView):
+    model = User
+    template_name = 'users/account.html'
