@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+        <title>{{ user.username}} profile</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <h1>{{ user.username}} profile</h1>
+    <div class="container">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Username: {{object.username}}</li>
+            <li class="list-group-item">Password: </li>
+            <li class="list-group-item">Name: {{object.first_name}}</li>
+            <li class="list-group-item">Surname: {{object.last_name}}</li>
+            <li class="list-group-item">email: {{object.email}}</li>
+            <li class="list-group-item">Last login: {{object.last_login}}</li>
+          </ul>
+        </div>
+        <p></p>
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            User tags:
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for item in object.subscribe.user_tags.all %}
+             <li class="list-group-item">
+                {{ item.tag }}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+    <a href=" {{ request.META.HTTP_REFERER }}">Назад</a>
+{% endblock %}
+</body>
+</html>
