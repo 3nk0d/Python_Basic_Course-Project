@@ -10,13 +10,7 @@
 </head>
 <body>
 {% block content %}
-    <a href=" {% url 'source_create' %}">
-        {% if user.is_staff %}
-        Создать запись
-        {% else %}
-        Предложить источник
-        {% endif %}
-    </a>
+    <h3>Sources</h3>
     {% for url in object_list %}
         <li>
             <a href=" {% url 'source' pk=url.pk %}">
@@ -33,6 +27,14 @@
             {% endif %}
         </li>
     {% endfor %}
+    <br>
+     <a href=" {% url 'source_create' %}">
+        {% if user.is_staff %}
+        Создать запись
+        {% else %}
+        Предложить источник
+        {% endif %}
+    </a>
 {% endblock %}
 </body>
 </html>
