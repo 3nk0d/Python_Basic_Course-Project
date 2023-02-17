@@ -4,7 +4,7 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from django.views.generic.detail import SingleObjectMixin
 from web_interface.models import Posts, RSS_links, Tags, Subscribe
 from django.contrib.auth.models import User
-from web_interface.forms import RSS_links_CreateForm
+from web_interface.forms import RSS_links_UserCreateForm, RSS_links_AdminCreateForm
 # Create your views here.
 
 def main_page(request):
@@ -62,8 +62,12 @@ class RSS_links_ListView(ListView):
 
 class RSS_links_CreateView(CreateView):
     model = RSS_links
-    form_class = RSS_links_CreateForm
+
+    form_class = RSS_links_UserCreateForm
+
     success_url = reverse_lazy('sources')
+
+
 
 
 class RSS_links_DetailView(DetailView):
@@ -88,7 +92,6 @@ class Tags_ListView(ListView):
         if self.request.user.is_staff:
             return super(Tags_ListView, self).get_queryset()
         return self.request.user.subscribe.user_tags.all()
-
 
 
 class Tags_DetailView(DetailView):
@@ -119,6 +122,8 @@ class AddTag_View(UpdateView):
     fields = ('user_tags',)
     success_url = reverse_lazy('tags')
 
+    def get_queryset(self):
+        return super(AddTag_View, self).get_queryset().filter(id=self.request.user.id)
 
 class RSS_links_UpdateView(UpdateView):
     model = RSS_links
