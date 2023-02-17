@@ -10,7 +10,13 @@
 </head>
 <body>
 {% block content %}
-    <h3>My Tags</h3>
+    <h3>
+        {% if user.is_staff %}
+        Tags
+        {% else %}
+        My tags
+        {% endif %}
+    </h3>
     {% for item in object_list %}
         <li>
             <a href=" {% url 'tag' pk=item.pk %}">
@@ -30,7 +36,9 @@
     <br>
     <a href=" {% url 'tag_create' %}">Создать тэг</a>
     <br>
+    {% if not user.is_staff %}
     <a href="{% url 'subcribe_change' pk=user.id %}">Изменить мои тэги</a>
+    {% endif %}
 {% endblock %}
 </body>
 </html>
