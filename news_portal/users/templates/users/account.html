@@ -37,6 +37,8 @@
         </div>
     </div>
     <br>
+    <a href="{% url 'account_pass_update' pk=user.id %}">Обновить пароль</a>
+    <br>
     <a href="{% url 'account_update' pk=user.id %}">Обновить инфу</a>
     <br>
     <a href="{% url 'subcribe_change' pk=user.id %}">Изменить мои тэги</a>

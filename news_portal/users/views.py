@@ -42,4 +42,16 @@ class Account_Update(UpdateView):
         return reverse_lazy('account', kwargs={'pk': self.kwargs['pk']})
 
     def get_queryset(self):
-        return super(Account, self).get_queryset().filter(id=self.request.user.id)
+        return super(Account_Update, self).get_queryset().filter(id=self.request.user.id)
+
+
+class Account_Password_Update(UpdateView):
+    model = User
+    fields = ('password',)
+    template_name = 'users/user_form_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('account', kwargs={'pk': self.kwargs['pk']})
+
+    def get_queryset(self):
+        return super(Account_Password_Update, self).get_queryset().filter(id=self.request.user.id)
