@@ -62,12 +62,12 @@ class RSS_links_ListView(ListView):
 
 class RSS_links_CreateView(CreateView):
     model = RSS_links
-
-    form_class = RSS_links_UserCreateForm
-
     success_url = reverse_lazy('sources')
 
-
+    def get_form(self, form_class=None):
+        if self.request.user.is_staff:
+            return RSS_links_AdminCreateForm
+        return RSS_links_UserCreateForm
 
 
 class RSS_links_DetailView(DetailView):
