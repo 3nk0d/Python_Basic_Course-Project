@@ -17,6 +17,8 @@
             /
             <a href=" {% url 'user_change' pk=user.pk %}">Изменить запись</a>
             /
+            <a href=" {% url 'subcribe_change' pk=user.pk %}">Изменить теги</a>
+            /
             <a href=" {% url 'user_delete' pk=user.pk %}">Удалить запись</a>
         </li>
     {% endfor %}
