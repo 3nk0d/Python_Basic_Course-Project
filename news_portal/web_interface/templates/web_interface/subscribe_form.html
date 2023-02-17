@@ -15,7 +15,7 @@
       {{ form.as_p }}
       <button type="submit">Применить</button>
     </form>
-    <a href="{% url 'tags' %}">Назад</a>
+    <a href="{{ request.META.HTTP_REFERER }}">Назад</a>
 {% endblock %}
 </body>
 </html>
