@@ -9,7 +9,7 @@ class Command (BaseCommand):
 
     def handle(self, *args, **options):
 
-        rss_links = RSS_links.objects.all()
+        rss_links = RSS_links.objects.filter(approved=True)
 
         tags = Tags.objects.all()
 
