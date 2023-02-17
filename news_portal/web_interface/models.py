@@ -17,14 +17,10 @@ class Subscribe(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_user_subscribe(sender, instance, created, **kwargs):
+def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
     if created:
         Subscribe.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_subscribe(sender, instance, **kwargs):
-    instance.subscribe.save()
+        instance.subscribe.save()
 
 
 class RSS_links(models.Model):
