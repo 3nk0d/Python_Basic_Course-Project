@@ -44,6 +44,7 @@ from users.views import (
     Login_View,
     Logout_View,
     Account,
+    Account_Update,
 )
 
 
@@ -75,5 +76,6 @@ urlpatterns = [
     path('users/login/', Login_View.as_view(), name='authentication'),
     path('users/logout/', Logout_View.as_view(), name='log_out'),
     path('users/account/<int:pk>/', Account.as_view(), name='account'),
+    path('user/update/<int:pk>/', Account_Update.as_view(), name='account_update'),
     path('admin/', admin.site.urls),
 ]
