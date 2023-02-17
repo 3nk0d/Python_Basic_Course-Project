@@ -4,7 +4,7 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from django.views.generic.detail import SingleObjectMixin
 from web_interface.models import Posts, RSS_links, Tags, Subscribe
 from django.contrib.auth.models import User
-from web_interface.forms import RSS_links_UserCreateForm, RSS_links_AdminCreateForm
+from web_interface.forms import RSS_links_UserCreateForm, RSS_links_AdminCreateForm, AddTag_View_AdminForm, AddTag_View_UserForm
 # Create your views here.
 
 def main_page(request):
@@ -23,8 +23,7 @@ class Posts_ListView(ListView):
     def get_queryset(self):
         if self.request.user.is_staff:
             return super(Posts_ListView, self).get_queryset()
-        print(Posts.objects.all())
-        return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all())
+        return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all()).distinct()
 
 
 class Posts_DetailView(DetailView):
@@ -64,7 +63,7 @@ class RSS_links_CreateView(CreateView):
     model = RSS_links
     success_url = reverse_lazy('sources')
 
-    def get_form(self, form_class=None):
+    def get_form_class(self):
         if self.request.user.is_staff:
             return RSS_links_AdminCreateForm
         return RSS_links_UserCreateForm
@@ -119,10 +118,17 @@ class Users_UpdateView(UpdateView):
 
 class AddTag_View(UpdateView):
     model = Subscribe
-    fields = ('user_tags',)
     success_url = reverse_lazy('tags')
+    #form_class = AddTag_View_AdminForm
+
+    def get_form_class(self):
+        if self.request.user.is_staff:
+            return AddTag_View_AdminForm
+        return AddTag_View_UserForm
 
     def get_queryset(self):
+        if self.request.user.is_staff:
+            return super(AddTag_View, self).get_queryset()
         return super(AddTag_View, self).get_queryset().filter(id=self.request.user.id)
 
 class RSS_links_UpdateView(UpdateView):
