@@ -15,6 +15,6 @@ class Command (BaseCommand):
 
         for post in posts:
             for tag in tags:
-                if (tag.tag in post.title) or (tag.tag in post.text):
+                if (tag.tag.lower() in post.title.lower()) or (tag.tag.lower() in post.text.lower()):
                     post.post_tags.add(tag)
 
