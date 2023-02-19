@@ -11,6 +11,17 @@ class Tags(models.Model):
     def __str__(self):
         return self.tag
 
+
+@receiver(post_save, sender=Tags)
+def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
+    if created:
+        posts = Posts.objects.all()
+        for post in posts:
+            if (instance.tag.lower() in post.title.lower()) or (instance.tag.lower() in post.text.lower()):
+                post.post_tags.add(instance)
+                print(post.title)
+
+
 class Subscribe(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_tags = models.ManyToManyField(Tags)
