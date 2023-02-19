@@ -19,7 +19,10 @@ def rss_parsing():
         #print(response['entries'])
         for post in response['entries']:
             title = post['title']
-            summary = post['summary']
+            try:
+                summary = post['summary']
+            except Exception:
+                continue
             source_link = post['link']
             publish_date_str = post['published']
             publish_date_time_struct = post['published_parsed']
