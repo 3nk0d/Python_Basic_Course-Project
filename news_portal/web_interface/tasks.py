@@ -1,7 +1,8 @@
 from celery import shared_task
 import feedparser
-import time
 from web_interface.models import Posts, RSS_links, Tags
+
+
 
 @shared_task()
 def rss_parsing():
@@ -35,3 +36,14 @@ def rss_parsing():
                     Post.post_tags.add(tag)
 
     print('end')
+
+@shared_task()
+def posts_tags_update(name):
+    posts = Posts.objects.all()
+    tag = Tags.objects.get(tag=name)
+    print(tag)
+    name = name.lower()
+    for post in posts:
+        if (name in post.title.lower()) or (name in post.text.lower()):
+            post.post_tags.add(tag)
+            print(post.title)
