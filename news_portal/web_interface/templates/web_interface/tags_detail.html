@@ -10,14 +10,17 @@
 </head>
 <body>
 {% block content %}
+    <h2>Тэг</h2>
     <div class="container">
+        <br>
         <div class="card" style="width: 18rem;">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">{{object.tag}}</li>
           </ul>
         </div>
+    <br>
+    <a href=" {% url 'tags' %}" class="btn btn-primary">Назад</a>
     </div>
-    <a href=" {% url 'tags' %}">Назад</a>
 {% endblock %}
 </body>
 </html>

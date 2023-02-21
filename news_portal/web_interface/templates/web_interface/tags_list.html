@@ -12,33 +12,41 @@
 {% block content %}
     <h3>
         {% if user.is_staff %}
-        Tags
+        Тэги
         {% else %}
-        My tags
+        Мои тэги
         {% endif %}
     </h3>
+
+        <a href=" {% url 'tag_create' %}" class="btn btn-primary">Создать тэг</a>
+        {% if user.is_staff %}
+            <br>
+        {% endif %}
+        {% if not user.is_staff %}
+        <a href="{% url 'subcribe_change' pk=user.id %}" class="btn btn-primary">Изменить мои тэги</a>
+        <br>
+        {% endif %}
+
+    <br>
+    <div class="list-group">
     {% for item in object_list %}
-        <li>
-            <a href=" {% url 'tag' pk=item.pk %}">
-                {% if user.is_staff %}
-                {{ item.id }}.
-                {% endif %}
-                {{ item.tag }}
+
+            {% if user.is_staff %}
+            <a href=" {% url 'tag' pk=item.pk %}" class="list-group-item list-group-item-action">
+                {{ item.id }}. {{ item.tag }}
+            {% else %}
+                <li class="list-group-item">{{ item.tag }}</li>
+            {% endif %}
             </a>
             {% if user.is_staff %}
-            /
-            <a href=" {% url 'tag_change' pk=item.pk %}">Изменить запись</a>
-            /
-            <a href=" {% url 'tag_delete' pk=item.pk %}">Удалить запись</a>
+            <ul class="list-group list-group-horizontal">
+                <a href=" {% url 'tag_change' pk=item.pk %}" class="list-group-item list-group-item-action">Изменить запись</a>
+                <a href=" {% url 'tag_delete' pk=item.pk %}" class="list-group-item list-group-item-action">Удалить запись</a>
+            </ul>
             {% endif %}
-        </li>
+
     {% endfor %}
-    <br>
-    <a href=" {% url 'tag_create' %}">Создать тэг</a>
-    <br>
-    {% if not user.is_staff %}
-    <a href="{% url 'subcribe_change' pk=user.id %}">Изменить мои тэги</a>
-    {% endif %}
+    </div>
 {% endblock %}
 </body>
 </html>

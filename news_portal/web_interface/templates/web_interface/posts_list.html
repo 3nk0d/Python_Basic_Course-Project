@@ -10,28 +10,29 @@
 </head>
 <body>
 {% block content %}
+    <h3>Посты</h3>
     {% if user.is_staff %}
-    <a href=" {% url 'post_create' %}">Создать запись</a>
+    <a href=" {% url 'post_create' %}" class="btn btn-primary">Создать запись</a>
+    <br>
+    <br>
     {% endif %}
-    <h3>Posts</h3>
-    <ul>
+
+    <div class="list-group">
     {% for post in object_list %}
-        <li>
-            <a href=" {% url 'post' pk=post.pk %}">
+            <a href=" {% url 'post' pk=post.pk %}" class="list-group-item list-group-item-action">
                 {% if user.is_staff %}
                 {{ post.id }}.
                 {% endif %}
                 {{ post.title }}
             </a>
             {% if user.is_staff %}
-            /
-            <a href=" {% url 'post_change' pk=post.pk %}">Изменить запись</a>
-            /
-            <a href=" {% url 'post_delete' pk=post.pk %}">Удалить запись</a>
+            <ul class="list-group list-group-horizontal">
+                <a href=" {% url 'post_change' pk=post.pk %}" class="list-group-item list-group-item-action">Изменить запись</a>
+                <a href=" {% url 'post_delete' pk=post.pk %}" class="list-group-item list-group-item-action">Удалить запись</a>
+            </ul>
             {% endif %}
-        </li>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
 </body>
 </html>

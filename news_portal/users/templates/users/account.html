@@ -10,22 +10,22 @@
 </head>
 <body>
 {% block content %}
-    <h1>{{ user.username}} profile</h1>
+    <h1>Аккаунт {{ user.username}}</h1>
     <div class="container">
         <div class="card" style="width: 18rem;">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Username: {{object.username}}</li>
-            <li class="list-group-item">Password: </li>
-            <li class="list-group-item">Name: {{object.first_name}}</li>
-            <li class="list-group-item">Surname: {{object.last_name}}</li>
+            <li class="list-group-item">Имя пользователя: {{object.username}}</li>
+            <li class="list-group-item">Пароль: </li>
+            <li class="list-group-item">Имя: {{object.first_name}}</li>
+            <li class="list-group-item">Фамилия: {{object.last_name}}</li>
             <li class="list-group-item">email: {{object.email}}</li>
-            <li class="list-group-item">Last login: {{object.last_login}}</li>
+            <li class="list-group-item">Последний вход: {{object.last_login}}</li>
           </ul>
         </div>
         <p></p>
         <div class="card" style="width: 18rem;">
           <div class="card-header">
-            User tags:
+            Мои тэги:
           </div>
           <ul class="list-group list-group-flush">
             {% for item in object.subscribe.user_tags.all %}
@@ -35,15 +35,13 @@
             {% endfor %}
           </ul>
         </div>
+
+    <br>
+    <a href="/" class="btn btn-primary">Назад</a>
+    <a href="{% url 'subcribe_change' pk=user.id %}" class="btn btn-secondary">Изменить мои тэги</a>
+    <a href="{% url 'account_pass_update' pk=user.id %}" class="btn btn-warning">Обновить пароль</a>
+    <a href="{% url 'account_update' pk=user.id %}" class="btn btn-info">Обновить информацию</a>
     </div>
-    <br>
-    <a href="{% url 'account_pass_update' pk=user.id %}">Обновить пароль</a>
-    <br>
-    <a href="{% url 'account_update' pk=user.id %}">Обновить инфу</a>
-    <br>
-    <a href="{% url 'subcribe_change' pk=user.id %}">Изменить мои тэги</a>
-    <br>
-    <a href=" {{ request.META.HTTP_REFERER }}">Назад</a>
 {% endblock %}
 </body>
 </html>

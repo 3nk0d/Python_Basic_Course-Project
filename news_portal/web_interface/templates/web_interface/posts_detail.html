@@ -11,32 +11,43 @@
 <body>
 {% block content %}
     <div class="container">
-        <div class="card" style="width: 18rem;">
+        <br>
+        <div class="card">
           <ul class="list-group list-group-flush">
             <div class="card-header">
                 {{object.title|striptags}}
             </div>
             <li class="list-group-item">{{object.text|striptags}}</li>
-            <li class="list-group-item"><a href="{{object.source_link}}">Url to the original post</a></li>
-            <li class="list-group-item">{{object.datetime_string}}</li>
-            <li class="list-group-item">{{object.rss_link.name}}</li>
           </ul>
         </div>
-        <p></p>
+        <br>
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <div class="card-header">
+                О статье
+            </div>
+            <li class="list-group-item">Источник: {{object.rss_link.name}}</li>
+            <li class="list-group-item"><a href="{{object.source_link}}">Ссылка на оригинальную статью</a></li>
+            <li class="list-group-item">{{object.datetime_string}}</li>
+          </ul>
+        </div>
+        <br>
         <div class="card" style="width: 18rem;">
           <div class="card-header">
-            Post tags:
+            Тэги статьи:
           </div>
           <ul class="list-group list-group-flush">
             {% for item in object.post_tags.all %}
              <li class="list-group-item">
-                {{ item.tag }}
+               {{ item.tag }}
             </li>
             {% endfor %}
           </ul>
         </div>
+
+    <br>
+    <a href=" {% url 'posts' %}" class="btn btn-primary">Назад</a>
     </div>
-    <a href=" {% url 'posts' %}">Назад</a>
 {% endblock %}
 </body>
 </html>

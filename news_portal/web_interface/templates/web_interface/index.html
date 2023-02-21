@@ -5,12 +5,31 @@
 <head>
     <meta charset="UTF-8">
     {% block head %}
-        <title>Title</title>
+        <title>RSS News homepage</title>
     {% endblock %}
 </head>
 <body>
 {% block content %}
-    <h1>Hello, {{ user.username|default:"anonymous" }}!</h1>
+    <h1>Привет, {{ user.username|default:"аноним" }}!</h1>
+    {% if not user.is_authenticated%}
+    <div class="card" style="width: 80rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Зарегистрируйся или войди в свой аккаунт для продолжения работы.</li>
+        </ul>
+    </div>
+    {% else%}
+    <div class="card" style="width: 80rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Выбери тэги, которые хочешь видеть в "Мои тэги"
+                и во вкладке "Протэгированные посты"
+                ты увидишь статьи имеющие выбранный тэг.
+            </li>
+            <li class="list-group-item">В RSS ссылки можно увидеть откуда берутся статьи
+                и предложить новый источник.
+            </li>
+        </ul>
+    </div>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

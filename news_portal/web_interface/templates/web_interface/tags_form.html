@@ -13,9 +13,9 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Применить</button>
+      <a href="{% url 'tags' %}" class="btn btn-primary">Назад</a>
+      <button type="submit" class="btn btn-success">Применить</button>
     </form>
-    <a href="{% url 'tags' %}">Назад</a>
 {% endblock %}
 </body>
 </html>

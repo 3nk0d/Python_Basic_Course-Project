@@ -10,18 +10,20 @@
 </head>
 <body>
 {% block content %}
-    <a href=" {% url 'user_create' %}">Создать запись</a>
+    <h2> Пользователи</h2>
+    <a href=" {% url 'user_create' %}" class="btn btn-primary">Создать запись</a>
+    <br>
+    <br>
+    <div class="list-group">
     {% for user in object_list %}
-        <li>
-            <a href=" {% url 'user' pk=user.pk %}">{{ user.id }}. {{ user.username }}</a>
-            /
-            <a href=" {% url 'user_change' pk=user.pk %}">Изменить запись</a>
-            /
-            <a href=" {% url 'subcribe_change' pk=user.pk %}">Изменить теги</a>
-            /
-            <a href=" {% url 'user_delete' pk=user.pk %}">Удалить запись</a>
-        </li>
+            <a href=" {% url 'user' pk=user.pk %}" class="list-group-item list-group-item-action">{{ user.id }}. {{ user.username }}</a>
+            <ul class="list-group list-group-horizontal">
+                <a href=" {% url 'user_change' pk=user.pk %}" class="list-group-item list-group-item-action">Изменить запись</a>
+                <a href=" {% url 'subcribe_change' pk=user.pk %}" class="list-group-item list-group-item-action">Изменить теги</a>
+                <a href=" {% url 'user_delete' pk=user.pk %}" class="list-group-item list-group-item-action">Удалить запись</a>
+            </ul>
     {% endfor %}
+    </div>
 {% endblock %}
 </body>
 </html>

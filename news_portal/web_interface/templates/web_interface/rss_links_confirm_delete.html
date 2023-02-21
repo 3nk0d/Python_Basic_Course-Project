@@ -19,8 +19,8 @@
 
     <form method="post">
       {% csrf_token %}
-      <a href=" {% url 'sources' %}">Назад</a>
-      <button type="submit">Подтверждаю удаление</button>
+      <a href=" {% url 'sources' %}" class="btn btn-primary">Назад</a>
+      <button type="submit" class="btn btn-danger">Подтверждаю удаление</button>
     </form>
 {% endblock %}
 </body>

@@ -10,20 +10,20 @@
 </head>
 <body>
 {% block content %}
-    <h1>Link Info</h1>
+    <h1>Информация об источнике</h1>
     <div class="container">
         <div class="card" style="width: 18rem;">
           <ul class="list-group list-group-flush">
               <div class="card-header">
                 {{object.name}}
             </div>
-            <li class="list-group-item">{{object.link}}</li>
-            <li class="list-group-item">{{object.approved}}</li>
+            <li class="list-group-item"><a href="{{object.link}}">Ссылка на xml</a></li>
+            <li class="list-group-item">Одобрен: {% if object.approved == False %} Нет {%else%} Да {% endif %}</li>
           </ul>
         </div>
-    </div>
     <br>
     <a href=" {% url 'sources' %}" class="btn btn-primary">Назад</a>
+    </div>
 {% endblock %}
 </body>
 </html>
