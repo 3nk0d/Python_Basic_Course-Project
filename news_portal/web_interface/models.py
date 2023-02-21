@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 # Create your models here.
+
 
 
 class Tags(models.Model):
@@ -12,26 +11,9 @@ class Tags(models.Model):
         return self.tag
 
 
-@receiver(post_save, sender=Tags)
-def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
-    if created:
-        posts = Posts.objects.all()
-        for post in posts:
-            if (instance.tag.lower() in post.title.lower()) or (instance.tag.lower() in post.text.lower()):
-                post.post_tags.add(instance)
-                print(post.title)
-
-
 class Subscribe(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_tags = models.ManyToManyField(Tags)
-
-
-@receiver(post_save, sender=User)
-def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
-    if created:
-        Subscribe.objects.create(user=instance)
-        instance.subscribe.save()
 
 
 class RSS_links(models.Model):
@@ -41,6 +23,7 @@ class RSS_links(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Posts(models.Model):
     title = models.CharField(max_length=100)
