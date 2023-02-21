@@ -6,9 +6,14 @@ from web_interface.models import Posts, RSS_links, Tags, Subscribe
 from django.contrib.auth.models import User
 from web_interface.forms import RSS_links_UserCreateForm, RSS_links_AdminCreateForm, AddTag_View_AdminForm, AddTag_View_UserForm
 # Create your views here.
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from web_interface.tasks import posts_tags_update
+
 
 def main_page(request):
     return render(request, 'web_interface/index.html')
+
 
 class Posts_CreateView(CreateView):
     model = Posts
@@ -143,3 +148,19 @@ class Tags_UpdateView(UpdateView):
     success_url = reverse_lazy('tags')
 
 
+@receiver(post_save, sender=User)
+def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
+    if created:
+        Subscribe.objects.create(user=instance)
+        instance.subscribe.save()
+
+
+@receiver(post_save, sender=Tags)
+def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
+    if created:
+        posts_tags_update.delay(instance.tag)
+        # posts = Posts.objects.all()
+        # for post in posts:
+        #     if (instance.tag.lower() in post.title.lower()) or (instance.tag.lower() in post.text.lower()):
+        #         post.post_tags.add(instance)
+        #         print(post.title)
