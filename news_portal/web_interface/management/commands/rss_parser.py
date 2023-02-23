@@ -21,14 +21,14 @@ class Command (BaseCommand):
                 continue
             #print(response['entries'])
             for post in response['entries']:
-                title = post['title']
                 try:
+                    title = post['title']
                     summary = post['summary']
+                    source_link = post['link']
+                    publish_date_str = post['published']
+                    publish_date_time_struct = post['published_parsed']
                 except Exception:
                     continue
-                source_link = post['link']
-                publish_date_str = post['published']
-                publish_date_time_struct = post['published_parsed']
                 if Posts.objects.filter(title=title):
                     continue
                 Post = Posts.objects.create(title=title, text=summary, source_link=source_link, datetime_string=publish_date_str, rss_link=rss_link)
