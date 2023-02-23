@@ -19,7 +19,7 @@ class Command (BaseCommand):
             print(response)
             if not response['entries']:
                 continue
-            #print(response['entries'])
+            print(len(response['entries']))
             for post in response['entries']:
                 try:
                     title = post['title']

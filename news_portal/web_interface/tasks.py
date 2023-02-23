@@ -17,7 +17,7 @@ def rss_parsing():
         #print(response)
         if not response['entries']:
             continue
-        print(response['entries'].len())
+        print(len(response['entries']))
         for post in response['entries']:
             try:
                 title = post['title']
