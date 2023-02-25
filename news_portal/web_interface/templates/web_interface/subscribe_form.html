@@ -13,6 +13,14 @@
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
+      <div class="card" style="width: 80rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Для выбора одного тэга нужно нажать на него.</li>
+            <li class="list-group-item">Для выбора нескольких тэгов нужно зажать ctrl и нажатиями выбрать тэги.</li>
+            <li class="list-group-item">Тэги находящиеся рядом можно выбрать зажав левую кнопку мыши.</li>
+        </ul>
+      </div>
+      <br>
       <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">Назад</a>
       <button type="submit" class="btn btn-success">Применить</button>
     </form>
