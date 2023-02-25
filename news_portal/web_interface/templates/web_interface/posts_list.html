@@ -19,17 +19,27 @@
 
     <div class="list-group">
     {% for post in object_list %}
-            <a href=" {% url 'post' pk=post.pk %}" class="list-group-item list-group-item-action">
+            <a href=" {% url 'post' pk=post.pk %}" class="list-group-item list-group-item-action text-primary-emphasis">
                 {% if user.is_staff %}
                 {{ post.id }}.
                 {% endif %}
                 {{ post.title }}
             </a>
+            <li class="list-group-item">
+                <ul class="list-group list-group-horizontal">
+                Тэги:
+                {% for tag in post.post_tags.all|dictsort:"tag" %}
+                    &emsp;<div class="text-info-emphasis">{{tag.tag}}</div>
+                {% endfor %}
+                </ul>
+            </li>
             {% if user.is_staff %}
+            <li class="list-group-item">
             <ul class="list-group list-group-horizontal">
                 <a href=" {% url 'post_change' pk=post.pk %}" class="list-group-item list-group-item-action">Изменить запись</a>
                 <a href=" {% url 'post_delete' pk=post.pk %}" class="list-group-item list-group-item-action">Удалить запись</a>
             </ul>
+            </li>
             {% endif %}
     {% endfor %}
     </div>
