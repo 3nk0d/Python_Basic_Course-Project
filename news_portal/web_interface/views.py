@@ -4,7 +4,14 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from django.views.generic.detail import SingleObjectMixin
 from web_interface.models import Posts, RSS_links, Tags, Subscribe
 from django.contrib.auth.models import User
-from web_interface.forms import RSS_links_UserCreateForm, RSS_links_AdminCreateForm, AddTag_View_AdminForm, AddTag_View_UserForm
+from web_interface.forms import (
+    RSS_links_UserCreateForm,
+    RSS_links_AdminCreateForm,
+    AddTag_View_AdminForm,
+    AddTag_View_UserForm,
+    Tags_Create_Update_View_Form,
+    Posts_Create_Update_View_Form,
+)
 # Create your views here.
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -17,8 +24,7 @@ def main_page(request):
 
 class Posts_CreateView(CreateView):
     model = Posts
-    fields = ('title', 'text', 'source_link', 'datetime_string', 'rss_link', 'post_tags')
-    #form_class = PostForm
+    form_class = Posts_Create_Update_View_Form
     success_url = reverse_lazy('posts')
 
 
@@ -27,6 +33,7 @@ class Posts_ListView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
+            print(self.request)
             return super(Posts_ListView, self).get_queryset()
         return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all()).distinct()
 
@@ -85,7 +92,7 @@ class RSS_links_Delete(DeleteView):
 
 class Tags_CreateView(CreateView):
     model = Tags
-    fields = ('tag',)
+    form_class = Tags_Create_Update_View_Form
     success_url = reverse_lazy('tags')
 
 
@@ -109,8 +116,7 @@ class Tags_Delete(DeleteView):
 
 class Posts_UpdateView(UpdateView):
     model = Posts
-    fields = ('title', 'text', 'source_link', 'datetime_string', 'rss_link', 'post_tags')
-    #form_class = PostForm
+    form_class = Posts_Create_Update_View_Form
     success_url = reverse_lazy('posts')
 
 
@@ -124,7 +130,6 @@ class Users_UpdateView(UpdateView):
 class AddTag_View(UpdateView):
     model = Subscribe
     success_url = reverse_lazy('tags')
-    #form_class = AddTag_View_AdminForm
 
     def get_form_class(self):
         if self.request.user.is_staff:
@@ -138,13 +143,13 @@ class AddTag_View(UpdateView):
 
 class RSS_links_UpdateView(UpdateView):
     model = RSS_links
-    fields = ('name', 'link', 'approved')
+    form_class = RSS_links_AdminCreateForm
     success_url = reverse_lazy('sources')
 
 
 class Tags_UpdateView(UpdateView):
     model = Tags
-    fields = ('tag',)
+    form_class = Tags_Create_Update_View_Form
     success_url = reverse_lazy('tags')
 
 
