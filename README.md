@@ -32,7 +32,8 @@ docker compose up
 ```
 
 - Каталога news_portal
-Django:
+
+- - Django:
 ```
 python manage.py runserver
 ```
