@@ -40,7 +40,9 @@ Celery scheduled works
 ## Команды
 
 Заполнение БД тестовыми данными
-```python .\manage.py fill_db```
+```
+python .\manage.py fill_db
+```
 
 Ручной запуск парсинга источников RSS 
 `python .\manage.py rss_parser`
