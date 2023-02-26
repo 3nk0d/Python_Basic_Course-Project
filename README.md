@@ -41,7 +41,9 @@ Celery scheduled works
 
 Заполнение БД тестовыми данными
 `fill_db`
+
 Ручной запуск парсинга источников RSS 
 `rss_parser`
+
 Ручное обновление тэгов статей
 `tags_update`
