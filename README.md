@@ -26,10 +26,12 @@
 
 В отдельных терминалах запустить из:
 
-Каталога проекта RabbitMQ и PostgreSQL
-- docker compose up
+- Каталога проекта RabbitMQ и PostgreSQL
+```
+docker compose up
+```
 
-Каталога news_portal
+- Каталога news_portal
 Django:
 ```
 python manage.py runserver
