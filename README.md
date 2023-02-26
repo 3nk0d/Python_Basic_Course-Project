@@ -12,7 +12,22 @@
 - Docker
 - RabbitMQ
 - Celery
+- Postgresql
 
 ## Используемые пакеты
 - feedparser (Парсинг RSS)
 - eventlet (Для Celery на Windows)
+
+## Запуск проекта
+
+В отдельных терииналах запустить из:
+
+Каталога проекта Rabbit-mq и Postgresql
+- docker compose up
+Каталога news_portal
+Django:
+- python manage.py runserver
+Celery worker
+- celery -A news_portal worker -l DEBUG -P eventlet
+Celery scheduled works
+- celery -A news_portal beat
