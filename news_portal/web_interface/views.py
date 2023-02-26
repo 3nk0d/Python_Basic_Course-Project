@@ -33,7 +33,6 @@ class Posts_ListView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            print(self.request)
             return super(Posts_ListView, self).get_queryset()
         return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all()).distinct()
 
@@ -164,8 +163,3 @@ def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
 def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
     if created:
         posts_tags_update.delay(instance.tag)
-        # posts = Posts.objects.all()
-        # for post in posts:
-        #     if (instance.tag.lower() in post.title.lower()) or (instance.tag.lower() in post.text.lower()):
-        #         post.post_tags.add(instance)
-        #         print(post.title)

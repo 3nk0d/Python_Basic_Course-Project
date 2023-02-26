@@ -1,6 +1,4 @@
 from django.core.management.base import BaseCommand
-import feedparser
-import time
 from web_interface.models import Posts, Tags
 
 

@@ -16,7 +16,6 @@ class Command (BaseCommand):
         for rss_link in rss_links:
             print(rss_link.link)
             response = feedparser.parse(rss_link.link)
-            #print(response)
             if not response['entries']:
                 continue
             print(len(response['entries']))

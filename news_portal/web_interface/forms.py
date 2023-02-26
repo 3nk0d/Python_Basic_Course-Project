@@ -62,7 +62,6 @@ class Posts_Create_Update_View_Form(forms.ModelForm):
     source_link = forms.URLField(label='Ссылка на источник')
     datetime_string = forms.CharField(label='Дата и время создания')
     rss_link = forms.ModelChoiceField(queryset=RSS_links.objects, label='Наименование источника')
-    #post_tags = forms.MultipleChoiceField(choices=tags, label='Тэги', widget=forms.CheckboxSelectMultiple())
     post_tags = forms.ModelMultipleChoiceField(queryset=Tags.objects.all(), label='Тэги')
 
     class Meta:
