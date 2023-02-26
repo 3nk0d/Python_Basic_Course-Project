@@ -36,3 +36,12 @@ Celery worker
 - celery -A news_portal worker -l DEBUG -P eventlet
 Celery scheduled works
 - celery -A news_portal beat
+
+## Команды
+
+Заполнение БД тестовыми данными
+`fill_db`
+Ручной запуск парсинга источников RSS 
+`rss_parser`
+Ручное обновление тэгов статей
+`tags_update`
