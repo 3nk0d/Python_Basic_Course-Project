@@ -16,7 +16,7 @@
 - Docker
 - RabbitMQ
 - Celery
-- Postgresql
+- PostgreSQL
 
 ## Используемые пакеты
 - feedparser (Парсинг RSS)
@@ -26,7 +26,7 @@
 
 В отдельных терминалах запустить из:
 
-Каталога проекта Rabbit-mq и Postgresql
+Каталога проекта RabbitMQ и PostgreSQL
 - docker compose up
 Каталога news_portal
 Django:
