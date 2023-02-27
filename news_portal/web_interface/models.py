@@ -26,9 +26,9 @@ class RSS_links(models.Model):
 
 
 class Posts(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=300)
     text = models.TextField()
-    source_link = models.URLField()
+    source_link = models.URLField(max_length=300)
     datetime_string = models.CharField(max_length=100)
     rss_link = models.ForeignKey(RSS_links, on_delete=models.PROTECT)
     post_tags = models.ManyToManyField(Tags)
