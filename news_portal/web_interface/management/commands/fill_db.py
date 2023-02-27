@@ -18,16 +18,11 @@ class Command (BaseCommand):
         tag3 = Tags.objects.create(tag='авария')
         tag4 = Tags.objects.create(tag='яндекс')
 
+        admin = User.objects.create_superuser('admin', 'coalla2@gmail.com', '123456')
+        user1 = User.objects.create_user(username='Vovan3', first_name='Vova', email='Vova@email.com', password='dwadw232dAWD')
+        user2 = User.objects.create_user(username='Ivan12', first_name='Ivan', email='Ivan@email.com', password='faefgehgeafdwa')
+        user3 = User.objects.create_user(username='Ann4', first_name='Anna', email='Anna@email.com', password='AdwdaAWdr32')
 
-        user1 = User.objects.create(username='Vovan3', first_name='Vova', email='Vova@email.com')
-        user1.set_password('dwadw232dAWD')
-        user1.save()
-        user2 = User.objects.create(username='Ivan12', first_name='Ivan', email='Ivan@email.com')
-        user2.set_password('faefgehgeafdwa')
-        user2.save()
-        user3 = User.objects.create(username='Ann4', first_name='Anna', email='Anna@email.com')
-        user3.set_password('AdwdaAWdr32')
-        user3.save()
 
         user1.subscribe.user_tags.add(tag1, tag4)
         user2.subscribe.user_tags.add(tag2)
@@ -36,6 +31,12 @@ class Command (BaseCommand):
         first_url = RSS_links.objects.create(name='google', approved=False, link='http://www.google.com')
         second_url = RSS_links.objects.create(name='yandex', approved=False, link='http://www.yandex.com')
         third_url = RSS_links.objects.create(name='swyx.io', approved=True, link='https://swyx.io/rss.xml')
+        url = RSS_links.objects.create(name='ixbt news', approved=True, link='http://www.ixbt.com/export/news.rss')
+        url = RSS_links.objects.create(name='ixbt articles', approved=True, link='https://www.ixbt.com/export/articles.rss')
+        url = RSS_links.objects.create(name='kommersant', approved=True, link='http://www.kommersant.ru/RSS/news.xml')
+        url = RSS_links.objects.create(name='russian rt', approved=True, link='http://russian.rt.com/rss/')
+        url = RSS_links.objects.create(name='playground news', approved=True, link='https://www.playground.ru/rss/news.xml')
+        url = RSS_links.objects.create(name='playground articles', approved=True, link='https://www.playground.ru/rss/articles.xml')
 
         post1 = Posts.objects.create(title='Cool title 1', text='The best text 1', source_link='some url 1', rss_link=first_url)
         # post1.rss_link.add(first_url)
