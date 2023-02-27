@@ -160,6 +160,6 @@ def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Tags)
-def create_subscribe_for_user_on_save(sender, instance, created, **kwargs):
+def update_posts_with_tag_on_save(sender, instance, created, **kwargs):
     if created:
         posts_tags_update.delay(instance.tag)
