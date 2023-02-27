@@ -33,8 +33,8 @@ class Posts_ListView(ListView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return super(Posts_ListView, self).get_queryset()
-        return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all()).distinct()
+            return super(Posts_ListView, self).get_queryset().distinct().prefetch_related('post_tags')
+        return super(Posts_ListView, self).get_queryset().filter(post_tags__in=self.request.user.subscribe.user_tags.all()).distinct().prefetch_related('post_tags')
 
 
 class Posts_DetailView(DetailView):
