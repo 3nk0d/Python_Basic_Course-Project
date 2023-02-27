@@ -21,7 +21,7 @@
     <br>
     <br>
     <div class="list-group">
-    {% for url in object_list %}
+    {% for url in object_list|dictsort:"id" %}
             <a href=" {% url 'source' pk=url.pk %}" class="list-group-item list-group-item-action">
                 {% if user.is_staff %}
                 {{ url.id }}.
