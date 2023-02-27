@@ -137,5 +137,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Celery properties
-CELERY_BROKER_URL = 'amqp://admin:admin@rabbit:5672//'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = 'amqp://admin:admin@rabbit-mq:5672//'
+#CELERY_RESULT_BACKEND = 'db+postgresql://scott:tiger@localhost/mydatabase'
