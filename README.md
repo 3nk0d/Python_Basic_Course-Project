@@ -24,41 +24,27 @@
 
 ## Запуск проекта
 
-В отдельных терминалах запустить из:
+Запустить из терминала:
 
-Каталога проекта RabbitMQ и PostgreSQL:
 ```
 docker compose up
 ```
 
-Каталога news_portal:
-
-Django:
-```
-python manage.py runserver
-```
-Celery worker 
-```
-celery -A news_portal worker -l DEBUG -P eventlet
-```
-Celery scheduled works
-```
-celery -A news_portal beat
-```
-
 ## Команды
+
+Команды выполняются в контейнере `app`:
 
 Заполнение БД тестовыми данными
 ```
-python .\manage.py fill_db
+python manage.py fill_db
 ```
 
 Ручной запуск парсинга источников RSS 
 ```
-python .\manage.py rss_parser
+python manage.py rss_parser
 ```
 
 Ручное обновление тэгов статей
 ```
-python .\manage.py tags_update
+python manage.py tags_update
 ```
