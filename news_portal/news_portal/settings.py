@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*(a6z5(pk71vo-vfr5!!blh9%b1qhlfhguojr(l+cuvk)1vy!b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,8 +85,8 @@ DATABASES = {
         'NAME': 'RSS_News',
         'USER': 'user',
         'PASSWORD': 'pass',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'HOST': 'postgres',
+        'PORT': '5432',
     }
 }
 
@@ -135,3 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #AUTH
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Celery properties
+CELERY_BROKER_URL = 'amqp://admin:admin@rabbit-mq:5672//'
+#CELERY_RESULT_BACKEND = 'db+postgresql://scott:tiger@localhost/mydatabase'

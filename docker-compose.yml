@@ -4,6 +4,10 @@ version: "3"
 services:
   rabbit-mq:
     image: "rabbitmq:3-management"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_DEFAULT_VHOST=/
     ports:
       - "5672:5672"
       - "8080:15672"
@@ -16,7 +20,29 @@ services:
     ports:
       - "5433:5432"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
+      test: [ "CMD-SHELL", "pg_isready" , "-U", "user", "-d", "pass"]
       interval: 10s
       timeout: 5s
       retries: 5
+  app:
+    build:
+      dockerfile: ./Dockerfile
+    image: news_portal
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+        - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+  worker:
+    image: news_portal
+    restart: on-failure
+    command: bash -c "celery -A news_portal worker -l info -P eventlet"
+    depends_on:
+      - app
+  schedule:
+    image: news_portal
+    restart: on-failure
+    command: bash -c "celery -A news_portal beat"
+    depends_on:
+      - app
