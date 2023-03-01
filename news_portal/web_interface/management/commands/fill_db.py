@@ -34,7 +34,6 @@ class Command (BaseCommand):
         url = RSS_links.objects.create(name='ixbt news', approved=True, link='http://www.ixbt.com/export/news.rss')
         url = RSS_links.objects.create(name='ixbt articles', approved=True, link='https://www.ixbt.com/export/articles.rss')
         url = RSS_links.objects.create(name='kommersant', approved=True, link='http://www.kommersant.ru/RSS/news.xml')
-        url = RSS_links.objects.create(name='russian rt', approved=True, link='http://russian.rt.com/rss/')
         url = RSS_links.objects.create(name='playground news', approved=True, link='https://www.playground.ru/rss/news.xml')
         url = RSS_links.objects.create(name='playground articles', approved=True, link='https://www.playground.ru/rss/articles.xml')
 
