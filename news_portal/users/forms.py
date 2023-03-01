@@ -4,7 +4,7 @@ from django import forms
 
 class RegistrationForm(UserCreationForm):
 
-    username = forms.CharField(help_text='')
+    username = forms.CharField(help_text='', label='Имя пользователя')
 
     class Meta:
         model = User
