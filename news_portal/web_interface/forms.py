@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class RSS_links_AdminCreateForm(forms.ModelForm):
 
     name = forms.CharField(label='Название')
-    approved = forms.BooleanField(label='Одобрен')
+    approved = forms.BooleanField(label='Одобрен', required=False)
     link = forms.URLField(label='Ссылка')
 
     class Meta:
