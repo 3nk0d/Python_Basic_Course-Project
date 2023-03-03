@@ -24,7 +24,7 @@ app.conf.beat_schedule = {
     #     'schedule': crontab(),
     # },
     # executes every 20 minutes
-    'scraping-task-fifteen-min': {
+    'scraping-task-twenty-min': {
         'task': 'web_interface.tasks.rss_parsing',
         'schedule': crontab(minute='*/20')
     },
